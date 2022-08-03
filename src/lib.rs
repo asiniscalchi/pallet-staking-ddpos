@@ -87,7 +87,7 @@ pub mod pallet {
 	pub type UserStaked<T: Config> =
 		StorageDoubleMap<_, Twox64Concat, T::AccountId, Twox64Concat, T::AccountId, BalanceOf<T>>;
 
-	/// Map from all stake from the voters.
+	/// Map from all stake for validators.
 	#[pallet::storage]
 	#[pallet::getter(fn staked)]
 	pub type Staked<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, BalanceOf<T>>;
@@ -131,7 +131,6 @@ pub mod pallet {
 		BadState,
 		/// Invalid number of validators.
 		InvalidNumberOfValidators,
-
 		AlreadyVoted,
 	}
 
