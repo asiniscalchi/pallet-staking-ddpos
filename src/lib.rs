@@ -81,9 +81,9 @@ pub mod pallet {
 	#[pallet::getter(fn bonded)]
 	pub type Bonded<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, BalanceOf<T>>;
 
-	/// DoubleMap from all the "stash", "user", ratings.
+	/// DoubleMap from all the staked per user.
 	#[pallet::storage]
-	#[pallet::getter(fn user_validator)]
+	#[pallet::getter(fn user_staker)]
 	pub type UserStaked<T: Config> =
 		StorageDoubleMap<_, Twox64Concat, T::AccountId, Twox64Concat, T::AccountId, BalanceOf<T>>;
 
