@@ -34,8 +34,6 @@ used.
 An account can become bonded using the `bond` call.
 
 
-There are two possible roles that any staked account pair can be in: `Validator`, `Delegator`
-
 #### Validating
 
 A **validator** takes the role of either validating blocks or ensuring their finality,
@@ -45,20 +43,14 @@ get immediately chosen as a validator. Instead, they are declared as a _candidat
 _might_ get elected at the _next period_ as a validator. The result of the election is determined
 by delegators and their votes.
 
-An account can become a validator candidate via the
-[`validate`](https://docs.rs/pallet-staking/latest/pallet_staking/enum.Call.html#variant.validate) call.
+An account can become a validator candidate via the `bond`.
 
-#### Nomination
+#### Delegation
 
-A **nominator** does not take any _direct_ role in maintaining the network, instead, it votes on
-a set of validators  to be elected. Once interest in nomination is stated by an account, it
-takes effect at the next election round. The funds in the nominator's stash account indicate the
-_weight_ of its vote. Both the rewards and any punishment that a validator earns are shared
-between the validator and its nominators. This rule incentivizes the nominators to NOT vote for
-the misbehaving/offline validators as much as possible, simply because the nominators will also
-lose funds if they vote poorly.
-
-An account can become a nominator via the [`nominate`](https://docs.rs/pallet-staking/latest/pallet_staking/enum.Call.html#variant.nominate) call.
+A **delegator** does not take any _direct_ role in maintaining the network, instead, it votes on
+a set of validators  to be elected. Once interest in delegation is stated by an account, it
+takes effect at the next election round. e
+An account can become a delegator via the `vote` call.
 
 
 ### Session managing
