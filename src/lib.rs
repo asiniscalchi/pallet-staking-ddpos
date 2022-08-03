@@ -84,21 +84,21 @@ pub mod pallet {
 	/// DoubleMap from all the "stash", "user", ratings.
 	#[pallet::storage]
 	#[pallet::getter(fn user_validator)]
-	pub type UserValidator<T: Config> =
+	pub type UserStaked<T: Config> =
 		StorageDoubleMap<_, Twox64Concat, T::AccountId, Twox64Concat, T::AccountId, BalanceOf<T>>;
 
-	/// Map from all locked "stash" accounts to the controller account.
+	/// Map from all stake from the voters.
 	#[pallet::storage]
 	#[pallet::getter(fn staked)]
 	pub type Staked<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, BalanceOf<T>>;
 
-	/// Minimum number of staking participants before emergency conditions are imposed.
+	/// Minimum number of validators.
 	#[pallet::storage]
 	#[pallet::getter(fn minimum_validator_count)]
 	pub type MinimumValidatorCount<T> =
 		StorageValue<_, u32, ValueQuery, <T as Config>::MinimumValidatorCount>;
 
-	/// Minimum number of staking participants before emergency conditions are imposed.
+	/// Maximum number of validators.
 	#[pallet::storage]
 	#[pallet::getter(fn maximum_validator_count)]
 	pub type MaximumValidatorCount<T> =
@@ -214,13 +214,13 @@ pub mod pallet {
 		) -> DispatchResult {
 			let voter = ensure_signed(origin)?;
 
-			if <UserValidator<T>>::contains_key(&voter, &target) {
+			if <UserStaked<T>>::contains_key(&voter, &target) {
 				return Err(Error::<T>::AlreadyVoted.into());
 			}
 
 			T::Currency::reserve(&voter, value)?;
 
-			<UserValidator<T>>::insert(&voter, &target, &value);
+			<UserStaked<T>>::insert(&voter, &target, &value);
 
 			let stake = <Staked<T>>::get(&target);
 			match stake {
@@ -237,11 +237,11 @@ pub mod pallet {
 		pub fn unvote(origin: OriginFor<T>, target: T::AccountId) -> DispatchResult {
 			let voter = ensure_signed(origin)?;
 
-			if !<UserValidator<T>>::contains_key(&voter, &target) {
+			if !<UserStaked<T>>::contains_key(&voter, &target) {
 				return Ok(());
 			}
 
-			let staked = <UserValidator<T>>::take(&voter, &target).expect("alredy checked");
+			let staked = <UserStaked<T>>::take(&voter, &target).expect("alredy checked");
 
 			T::Currency::unreserve(&voter, staked);
 
