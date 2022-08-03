@@ -206,7 +206,7 @@ fn users_could_revote_after_unvote() {
 fn vote_should_set_the_vote_target() {
 	new_test_ext().execute_with(|| {
 		assert_ok!(Staking::vote(Origin::signed(ALICE), BOB, 10));
-		assert_eq!(Staking::user_validator(ALICE, BOB), Some(10));
+		assert_eq!(Staking::user_staked(ALICE, BOB), Some(10));
 	});
 }
 
@@ -215,7 +215,7 @@ fn unvote_should_remove_the_vote_target() {
 	new_test_ext().execute_with(|| {
 		assert_ok!(Staking::vote(Origin::signed(ALICE), BOB, 0));
 		assert_ok!(Staking::unvote(Origin::signed(ALICE), BOB));
-		assert_eq!(Staking::user_validator(ALICE, BOB), None);
+		assert_eq!(Staking::user_staked(ALICE, BOB), None);
 	});
 }
 

@@ -83,7 +83,7 @@ pub mod pallet {
 
 	/// DoubleMap from all the staked per user.
 	#[pallet::storage]
-	#[pallet::getter(fn user_staker)]
+	#[pallet::getter(fn user_staked)]
 	pub type UserStaked<T: Config> =
 		StorageDoubleMap<_, Twox64Concat, T::AccountId, Twox64Concat, T::AccountId, BalanceOf<T>>;
 
