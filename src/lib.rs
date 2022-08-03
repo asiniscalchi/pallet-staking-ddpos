@@ -11,8 +11,6 @@ mod mock;
 #[cfg(test)]
 mod tests;
 
-#[cfg(feature = "runtime-benchmarks")]
-mod benchmarking;
 pub(crate) const LOG_TARGET: &str = "runtime::dpos";
 
 // syntactic sugar for logging.
