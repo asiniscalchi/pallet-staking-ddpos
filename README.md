@@ -48,8 +48,8 @@ An account can become a validator candidate via the `bond`.
 #### Delegation
 
 A **delegator** does not take any _direct_ role in maintaining the network, instead, it votes on
-a set of validators  to be elected. Once interest in delegation is stated by an account, it
-takes effect at the next election round. e
+a set of validators  to be elected. Once nterest in delegation is stated by an account, it
+takes effect at the next election round. 
 An account can become a delegator via the `vote` call.
 
 
